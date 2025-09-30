@@ -1,0 +1,166 @@
+# Laravel Framework
+/vendor/
+/node_modules/
+/public/hot
+/public/storage
+/storage/*.key
+/storage/app/backups/*.sql
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+/storage/app/private/*
+!/storage/app/private/.gitkeep
+!/storage/app/public/.gitkeep
+!/storage/framework/cache/.gitkeep
+!/storage/framework/sessions/.gitkeep
+!/storage/framework/testing/.gitkeep
+!/storage/framework/views/.gitkeep
+!/storage/logs/.gitkeep
+
+# Environment files
+.env
+.env.backup
+.env.production
+.env.local
+.env.testing
+.phpunit.result.cache
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build files
+/public/build/
+/public/mix-manifest.json
+/public/css/
+/public/js/
+/public/fonts/
+
+# Cache files
+/bootstrap/cache/packages.php
+/bootstrap/cache/services.php
+/bootstrap/cache/routes-v7.php
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+
+# Database files (keep SQLite for development)
+# /database/database.sqlite
+
+# Composer
+composer.phar
+
+# PHPUnit
+.phpunit.result.cache
+
+# Laravel specific
+/public/storage
+/storage/app/public/*
+!/storage/app/public/.gitkeep
+
+# Documentation (keep for Envato)
+# /gym-management-system-documentation/
+
+# Sample data files
+insert_sample_data.php
+sample_data.sql
+
+# Test files (keep TestCase.php)
+/tests/Feature/
+/tests/Unit/
+!tests/TestCase.php
+
+# Laravel Mix
+/public/css/
+/public/js/
+/public/mix-manifest.json
+
+# Vite
+/public/build/
+
+# Hot reload
+/public/hot
