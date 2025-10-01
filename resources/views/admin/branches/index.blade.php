@@ -5,12 +5,14 @@
     <div class="space-y-6 max-w-full">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Branches Management</h1>
+        @can('create_branches')
         <a href="{{ route('admin.branches.create') }}" class="btn btn-primary">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
             </svg>
             Add New Branch
         </a>
+        @endcan
     </div>
 
     <!-- Branches Table -->
@@ -84,12 +86,16 @@
                                     <td class="px-3 py-4 text-right text-sm font-medium">
                                         <div class="flex justify-end space-x-2">
                                             <a href="{{ route('admin.branches.show', $branch->id) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                            @can('edit_branches')
                                             <a href="{{ route('admin.branches.edit', $branch->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            @endcan
+                                            @can('delete_branches')
                                             <form method="POST" action="{{ route('admin.branches.destroy', $branch->id) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this branch?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

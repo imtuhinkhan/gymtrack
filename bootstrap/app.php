@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.any.permission' => \App\Http\Middleware\CheckAnyPermission::class,
             'check.all.permissions' => \App\Http\Middleware\CheckAllPermissions::class,
             'installation' => \App\Http\Middleware\InstallationMiddleware::class,
+            'no.cache' => \App\Http\Middleware\NoCacheMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

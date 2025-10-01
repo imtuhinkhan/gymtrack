@@ -45,9 +45,6 @@
     
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom Styles -->
     <style>
         /* Prevent horizontal scrolling */
@@ -175,7 +172,5 @@
             document.body.appendChild(installButton);
         });
     </script>
-    
-    @yield('scripts')
 </body>
 </html>

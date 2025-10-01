@@ -21,15 +21,15 @@
         <div class="card">
             <div class="card-body">
                 @if($roles->count() > 0)
-                    <div class="overflow-x-auto">
-                        <table class="w-full divide-y divide-gray-200">
-                            <thead class="table-header">
+                    <div class="table-responsive">
+                        <table class="mobile-table">
+                            <thead>
                                 <tr>
-                                    <th class="table-cell">Role Name</th>
-                                    <th class="table-cell">Permissions</th>
-                                    <th class="table-cell">Users</th>
-                                    <th class="table-cell">Created</th>
-                                    <th class="table-cell">Actions</th>
+                                    <th>Role Name</th>
+                                    <th>Permissions</th>
+                                    <th>Users</th>
+                                    <th>Created</th>
+                                    <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>

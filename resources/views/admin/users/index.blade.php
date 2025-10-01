@@ -85,11 +85,11 @@
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 h-8 w-8">
                                                     @if($user->profile_image)
-                                                        <img class="h-8 w-8 rounded-full" src="{{ $user->profile_image_url }}" alt="{{ $user->name }}">
+                                                        <img class="h-8 w-8 rounded-full" src="{{ $user->profile_image_url }}" alt="{{ $user->full_name }}">
                                                     @else
                                                         <div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center">
                                                             <span class="text-xs font-medium text-gray-700">
-                                                                {{ substr($user->name, 0, 2) }}
+                                                                {{ substr($user->first_name, 0, 1) }}{{ substr($user->last_name, 0, 1) }}
                                                             </span>
                                                         </div>
                                                     @endif
