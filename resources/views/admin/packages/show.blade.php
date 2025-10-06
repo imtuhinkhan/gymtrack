@@ -242,7 +242,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-sm font-medium text-gray-700">Total Revenue</span>
-                            <span class="text-sm font-bold text-green-600">${{ number_format($package->subscriptions ? $package->subscriptions->sum('package.price') : 0, 2) }}</span>
+                            <span class="text-sm font-bold text-green-600">{{ \App\Services\SettingsService::formatCurrency($package->subscriptions ? $package->subscriptions->sum('package.price') : 0) }}</span>
                         </div>
                     </div>
                 </div>

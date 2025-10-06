@@ -65,20 +65,20 @@
                 @if($customers->isNotEmpty())
                     <div class="mb-8">
                         <h4 class="text-md font-semibold text-gray-900 mb-4">Members Attendance</h4>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                        <div class="table-responsive">
+                            <table class="mobile-table">
+                                <thead>
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        <th>Member</th>
+                                        <th>Branch</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody>
                                     @foreach($customers as $customer)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
                                                         <img class="h-10 w-10 rounded-full object-cover" src="{{ $customer->profile_image_url }}" alt="{{ $customer->first_name }}">
@@ -89,10 +89,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ $customer->branch->name ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 @php
                                                     $attendance = $customerAttendance->get($customer->id);
                                                 @endphp
@@ -104,7 +104,7 @@
                                                     <span class="badge badge-secondary">Not Marked</span>
                                                 @endif
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <td class="text-right">
                                                 <div class="flex space-x-2">
                                                     <form method="POST" action="{{ route('admin.attendance.store') }}" class="inline">
                                                         @csrf
@@ -141,21 +141,21 @@
                 @if($trainers->isNotEmpty())
                     <div>
                         <h4 class="text-md font-semibold text-gray-900 mb-4">Trainers Attendance</h4>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                        <div class="table-responsive">
+                            <table class="mobile-table">
+                                <thead>
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trainer</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialization</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        <th>Trainer</th>
+                                        <th>Branch</th>
+                                        <th>Specialization</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody>
                                     @foreach($trainers as $trainer)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
                                                         <img class="h-10 w-10 rounded-full object-cover" src="{{ $trainer->profile_image_url }}" alt="{{ $trainer->first_name }}">
@@ -166,13 +166,13 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ $trainer->branch->name ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ $trainer->specialization }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 @php
                                                     $attendance = $trainerAttendance->get($trainer->id);
                                                 @endphp
@@ -184,7 +184,7 @@
                                                     <span class="badge badge-secondary">Not Marked</span>
                                                 @endif
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <td class="text-right">
                                                 <div class="flex space-x-2">
                                                     <form method="POST" action="{{ route('admin.attendance.store') }}" class="inline">
                                                         @csrf

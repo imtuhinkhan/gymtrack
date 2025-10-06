@@ -65,23 +65,23 @@
         <div class="card">
             <div class="card-body">
                 @if($users->count() > 0)
-                    <div class="overflow-x-auto">
-                        <table class="w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <div class="table-responsive">
+                        <table class="mobile-table">
+                            <thead>
                                 <tr>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roles</th>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                                    <th class="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>Branch</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody>
                                 @foreach($users as $user)
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-3 py-4">
+                                    <tr>
+                                        <td>
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 h-8 w-8">
                                                     @if($user->profile_image)
@@ -100,10 +100,10 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-3 py-4">
+                                        <td>
                                             <span class="text-sm text-gray-900">{{ $user->email }}</span>
                                         </td>
-                                        <td class="px-3 py-4">
+                                        <td>
                                             <div class="flex flex-wrap gap-1">
                                                 @if($user->roles->count() > 0)
                                                     @foreach($user->roles->take(2) as $role)
@@ -117,18 +117,18 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="px-3 py-4">
+                                        <td>
                                             <span class="text-sm text-gray-900">{{ $user->branch->name ?? 'N/A' }}</span>
                                         </td>
-                                        <td class="px-3 py-4">
+                                        <td>
                                             <span class="badge badge-{{ $user->status === 'active' ? 'success' : 'secondary' }}">
                                                 {{ ucfirst($user->status) }}
                                             </span>
                                         </td>
-                                        <td class="px-3 py-4">
+                                        <td>
                                             <span class="text-sm text-gray-500">{{ $user->created_at->format('M d, Y') }}</span>
                                         </td>
-                                        <td class="px-3 py-4 text-right text-sm font-medium">
+                                        <td class="text-right">
                                             <div class="flex space-x-2">
                                                 <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-secondary">
                                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

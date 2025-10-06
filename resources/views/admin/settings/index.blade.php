@@ -40,14 +40,32 @@
                                 <option value="America/Chicago" {{ ($settings['app_timezone'] ?? '') == 'America/Chicago' ? 'selected' : '' }}>Central Time</option>
                                 <option value="America/Denver" {{ ($settings['app_timezone'] ?? '') == 'America/Denver' ? 'selected' : '' }}>Mountain Time</option>
                                 <option value="America/Los_Angeles" {{ ($settings['app_timezone'] ?? '') == 'America/Los_Angeles' ? 'selected' : '' }}>Pacific Time</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="app_currency" class="block text-sm font-medium text-gray-700">Currency</label>
-                            <select id="app_currency" name="app_currency" class="form-select mt-1 block w-full">
-                                <option value="USD" {{ ($settings['app_currency'] ?? 'USD') == 'USD' ? 'selected' : '' }}>USD ($)</option>
-                                <option value="EUR" {{ ($settings['app_currency'] ?? '') == 'EUR' ? 'selected' : '' }}>EUR (€)</option>
-                                <option value="GBP" {{ ($settings['app_currency'] ?? '') == 'GBP' ? 'selected' : '' }}>GBP (£)</option>
+                                <option value="UTC" {{ ($settings['app_timezone'] ?? 'UTC') == 'UTC' ? 'selected' : '' }}>UTC</option>
+                                <option value="America/New_York" {{ ($settings['app_timezone'] ?? '') == 'America/New_York' ? 'selected' : '' }}>Eastern Time</option>
+                                <option value="America/Chicago" {{ ($settings['app_timezone'] ?? '') == 'America/Chicago' ? 'selected' : '' }}>Central Time</option>
+                                <option value="America/Denver" {{ ($settings['app_timezone'] ?? '') == 'America/Denver' ? 'selected' : '' }}>Mountain Time</option>
+                                <option value="America/Los_Angeles" {{ ($settings['app_timezone'] ?? '') == 'America/Los_Angeles' ? 'selected' : '' }}>Pacific Time</option>
+                                <option value="Asia/Kolkata" {{ ($settings['app_timezone'] ?? '') == 'Asia/Kolkata' ? 'selected' : '' }}>Asia/Kolkata</option>
+                                <option value="Asia/Dubai" {{ ($settings['app_timezone'] ?? '') == 'Asia/Dubai' ? 'selected' : '' }}>Asia/Dubai</option>
+                                <option value="Asia/Karachi" {{ ($settings['app_timezone'] ?? '') == 'Asia/Karachi' ? 'selected' : '' }}>Asia/Karachi</option>
+                                <option value="Asia/Kathmandu" {{ ($settings['app_timezone'] ?? '') == 'Asia/Kathmandu' ? 'selected' : '' }}>Asia/Kathmandu</option>
+                                <option value="Asia/Kuala_Lumpur" {{ ($settings['app_timezone'] ?? '') == 'Asia/Kuala_Lumpur' ? 'selected' : '' }}>Asia/Kuala Lumpur</option>
+                                <option value="Asia/Muscat" {{ ($settings['app_timezone'] ?? '') == 'Asia/Muscat' ? 'selected' : '' }}>Asia/Muscat</option>
+                                <option value="Asia/Riyadh" {{ ($settings['app_timezone'] ?? '') == 'Asia/Riyadh' ? 'selected' : '' }}>Asia/Riyadh</option>
+                                <option value="Asia/Tokyo" {{ ($settings['app_timezone'] ?? '') == 'Asia/Tokyo' ? 'selected' : '' }}>Asia/Tokyo</option>
+                                <option value="Asia/Tashkent" {{ ($settings['app_timezone'] ?? '') == 'Asia/Tashkent' ? 'selected' : '' }}>Asia/Tashkent</option>
+                                <option value="Asia/Tehran" {{ ($settings['app_timezone'] ?? '') == 'Asia/Tehran' ? 'selected' : '' }}>Asia/Tehran</option>
+                                <option value="Asia/Thimphu" {{ ($settings['app_timezone'] ?? '') == 'Asia/Thimphu' ? 'selected' : '' }}>Asia/Thimphu</option>
+                                <option value="Asia/Tokyo" {{ ($settings['app_timezone'] ?? '') == 'Asia/Tokyo' ? 'selected' : '' }}>Asia/Tokyo</option>
+                                <option value="Asia/Ulaanbaatar" {{ ($settings['app_timezone'] ?? '') == 'Asia/Ulaanbaatar' ? 'selected' : '' }}>Asia/Ulaanbaatar</option>
+                                <option value="Asia/Urumqi" {{ ($settings['app_timezone'] ?? '') == 'Asia/Urumqi' ? 'selected' : '' }}>Asia/Urumqi</option>
+                                <option value="Asia/Vientiane" {{ ($settings['app_timezone'] ?? '') == 'Asia/Vientiane' ? 'selected' : '' }}>Asia/Vientiane</option>
+                                <option value="Asia/Vladivostok" {{ ($settings['app_timezone'] ?? '') == 'Asia/Vladivostok' ? 'selected' : '' }}>Asia/Vladivostok</option>
+                                <option value="Asia/Yakutsk" {{ ($settings['app_timezone'] ?? '') == 'Asia/Yakutsk' ? 'selected' : '' }}>Asia/Yakutsk</option>
+                                <option value="Asia/Yangon" {{ ($settings['app_timezone'] ?? '') == 'Asia/Yangon' ? 'selected' : '' }}>Asia/Yangon</option>
+                                <option value="Asia/Yekaterinburg" {{ ($settings['app_timezone'] ?? '') == 'Asia/Yekaterinburg' ? 'selected' : '' }}>Asia/Yekaterinburg</option>
+                                <option value="Asia/Yerevan" {{ ($settings['app_timezone'] ?? '') == 'Asia/Yerevan' ? 'selected' : '' }}>Asia/Yerevan</option>
+                                <option value="Asia/Zhongshan" {{ ($settings['app_timezone'] ?? '') == 'Asia/Zhongshan' ? 'selected' : '' }}>Asia/Zhongshan</option>
                             </select>
                         </div>
                         <div>
@@ -61,6 +79,66 @@
                         <div>
                             <button type="submit" class="btn btn-primary">Save General Settings</button>
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Currency Settings -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-lg font-semibold text-gray-900">Currency Settings</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('admin.settings.currency') }}">
+                    @csrf
+                    <div class="space-y-4">
+                        <div>
+                            <label for="currency_code" class="block text-sm font-medium text-gray-700">Currency Code</label>
+                            <select id="currency_code" name="currency_code" class="form-select mt-1 block w-full" onchange="updateCurrencySymbol()">
+                                @php
+                                    $currencies = \App\Helpers\CurrencyHelper::getAvailableCurrencies();
+                                    $currentCode = $settings['currency_code'] ?? 'USD';
+                                @endphp
+                                @foreach($currencies as $code => $currency)
+                                    <option value="{{ $code }}" {{ $currentCode == $code ? 'selected' : '' }}>
+                                        {{ $code }} - {{ $currency['name'] }} ({{ $currency['symbol'] }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="currency_symbol" class="block text-sm font-medium text-gray-700">Currency Symbol</label>
+                            <input type="text" id="currency_symbol" name="currency_symbol" 
+                                   value="{{ $settings['currency_symbol'] ?? '$' }}" 
+                                   class="form-input mt-1 block w-full" maxlength="10">
+                            <p class="mt-1 text-sm text-gray-500">Custom currency symbol (max 10 characters)</p>
+                        </div>
+                        <div>
+                            <label for="currency_position" class="block text-sm font-medium text-gray-700">Currency Position</label>
+                            <select id="currency_position" name="currency_position" class="form-select mt-1 block w-full">
+                                <option value="before" {{ ($settings['currency_position'] ?? 'before') == 'before' ? 'selected' : '' }}>
+                                    Before amount (e.g., $100.00)
+                                </option>
+                                <option value="after" {{ ($settings['currency_position'] ?? '') == 'after' ? 'selected' : '' }}>
+                                    After amount (e.g., 100.00$)
+                                </option>
+                            </select>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="text-sm font-medium text-blue-900 mb-2">Preview:</h4>
+                            <p class="text-lg font-semibold text-blue-800" id="currency_preview">
+                                {{ \App\Services\SettingsService::formatCurrency(1234.56) }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" class="btn btn-primary">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Update Currency Settings
+                        </button>
                     </div>
                 </form>
             </div>
@@ -204,4 +282,49 @@
     </div>
 
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    // Currency settings JavaScript
+    const currencies = @json(\App\Helpers\CurrencyHelper::getAvailableCurrencies());
+    
+    function updateCurrencySymbol() {
+        const currencyCode = document.getElementById('currency_code').value;
+        const currencySymbol = document.getElementById('currency_symbol');
+        const preview = document.getElementById('currency_preview');
+        
+        if (currencies[currencyCode]) {
+            currencySymbol.value = currencies[currencyCode].symbol;
+        }
+        
+        updatePreview();
+    }
+    
+    function updatePreview() {
+        const symbol = document.getElementById('currency_symbol').value;
+        const position = document.getElementById('currency_position').value;
+        const amount = '1,234.56';
+        
+        const formattedAmount = position === 'before' 
+            ? symbol + amount 
+            : amount + symbol;
+            
+        document.getElementById('currency_preview').textContent = formattedAmount;
+    }
+    
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        const currencySymbol = document.getElementById('currency_symbol');
+        const currencyPosition = document.getElementById('currency_position');
+        
+        if (currencySymbol) {
+            currencySymbol.addEventListener('input', updatePreview);
+        }
+        
+        if (currencyPosition) {
+            currencyPosition.addEventListener('change', updatePreview);
+        }
+    });
+</script>
 @endsection

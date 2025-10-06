@@ -90,7 +90,7 @@
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="stats-card-title">Monthly Revenue</dt>
-                            <dd class="stats-card-value">${{ number_format($stats['monthly_revenue'] ?? 0, 2) }}</dd>
+                            <dd class="stats-card-value">{{ \App\Services\SettingsService::formatCurrency($stats['monthly_revenue'] ?? 0) }}</dd>
                         </dl>
                     </div>
                 </div>

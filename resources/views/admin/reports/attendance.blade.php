@@ -212,24 +212,24 @@
         </div>
         <div class="card-body">
             @if($attendanceRecords->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                <div class="table-responsive">
+                    <table class="mobile-table">
+                        <thead>
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In Time</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Check In Time</th>
+                                <th>Status</th>
                                 @if(auth()->user()->hasRole('admin'))
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                                <th>Branch</th>
                                 @endif
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody>
                             @foreach($attendanceRecords as $record)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <div class="text-sm font-medium text-gray-900">
                                             @if($record->attendable_type === 'App\\Models\\Customer')
                                                 {{ $record->attendable->first_name ?? 'N/A' }} {{ $record->attendable->last_name ?? '' }}
@@ -238,24 +238,24 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <span class="badge {{ $record->attendable_type === 'App\\Models\\Customer' ? 'badge-primary' : 'badge-secondary' }}">
                                             {{ $record->attendable_type === 'App\\Models\\Customer' ? 'Member' : 'Trainer' }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ \Carbon\Carbon::parse($record->date)->format('M d, Y') }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ $record->check_in_time ? \Carbon\Carbon::parse($record->check_in_time)->format('h:i A') : 'N/A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <span class="badge {{ $record->status === 'present' ? 'badge-success' : ($record->status === 'absent' ? 'badge-danger' : 'badge-warning') }}">
                                             {{ ucfirst($record->status) }}
                                         </span>
                                     </td>
                                     @if(auth()->user()->hasRole('admin'))
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ $record->branch->name ?? 'N/A' }}
                                     </td>
                                     @endif

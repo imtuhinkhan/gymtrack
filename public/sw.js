@@ -1,12 +1,9 @@
 // Service Worker for Gym Management System PWA
-const CACHE_NAME = 'gym-management-v1';
+const CACHE_NAME = 'gym-management-v3';
 const urlsToCache = [
     '/',
-    '/css/app.css',
-    '/js/app.js',
     '/manifest.json',
-    '/offline.html',
-    // Add other static assets as needed
+    // Only include assets that definitely exist
 ];
 
 // Install event - cache resources
@@ -15,7 +12,20 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('Opened cache');
-                return cache.addAll(urlsToCache);
+                // Use addAll with error handling
+                return Promise.allSettled(
+                    urlsToCache.map(url => 
+                        cache.add(url).catch(error => {
+                            console.warn(`Failed to cache ${url}:`, error);
+                            return null; // Don't fail the entire installation
+                        })
+                    )
+                );
+            })
+            .then(results => {
+                const successful = results.filter(r => r.status === 'fulfilled').length;
+                const failed = results.filter(r => r.status === 'rejected').length;
+                console.log(`Cache installation: ${successful} successful, ${failed} failed`);
             })
             .catch(error => {
                 console.error('Cache installation failed:', error);
@@ -24,42 +34,68 @@ self.addEventListener('install', event => {
 });
 
 // Fetch event - serve cached content when offline
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                // Return cached version or fetch from network
-                if (response) {
-                    return response;
-                }
+// self.addEventListener('fetch', event => {
+//     // Skip non-GET requests and unsupported schemes
+//     if (event.request.method !== 'GET') {
+//         return;
+//     }
+    
+//     // Skip chrome-extension, chrome, and other unsupported schemes
+//     const url = new URL(event.request.url);
+//     if (url.protocol === 'chrome-extension:' || 
+//         url.protocol === 'chrome:' || 
+//         url.protocol === 'moz-extension:' ||
+//         url.protocol === 'safari-extension:' ||
+//         url.protocol === 'ms-browser-extension:') {
+//         return;
+//     }
+    
+//     // Skip requests to external domains (only cache same-origin requests)
+//     if (url.origin !== location.origin) {
+//         return;
+//     }
+    
+//     event.respondWith(
+//         caches.match(event.request)
+//             .then(response => {
+//                 // Return cached version or fetch from network
+//                 if (response) {
+//                     return response;
+//                 }
                 
-                // Clone the request because it's a stream
-                const fetchRequest = event.request.clone();
+//                 // Clone the request because it's a stream
+//                 const fetchRequest = event.request.clone();
                 
-                return fetch(fetchRequest).then(response => {
-                    // Check if we received a valid response
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return response;
-                    }
+//                 return fetch(fetchRequest).then(response => {
+//                     // Check if we received a valid response
+//                     if (!response || response.status !== 200 || response.type !== 'basic') {
+//                         return response;
+//                     }
                     
-                    // Clone the response because it's a stream
-                    const responseToCache = response.clone();
+//                     // Only cache same-origin requests
+//                     if (response.url.startsWith(location.origin)) {
+//                         // Clone the response because it's a stream
+//                         const responseToCache = response.clone();
+                        
+//                         caches.open(CACHE_NAME)
+//                             .then(cache => {
+//                                 cache.put(event.request, responseToCache);
+//                             })
+//                             .catch(error => {
+//                                 console.warn('Failed to cache response:', error);
+//                             });
+//                     }
                     
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put(event.request, responseToCache);
-                        });
-                    
-                    return response;
-                }).catch(() => {
-                    // If both cache and network fail, show offline page
-                    if (event.request.destination === 'document') {
-                        return caches.match('/offline');
-                    }
-                });
-            })
-    );
-});
+//                     return response;
+//                 }).catch(() => {
+//                     // If both cache and network fail, show offline page
+//                     if (event.request.destination === 'document') {
+//                         return caches.match('/offline');
+//                     }
+//                 });
+//             })
+//     );
+// });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {

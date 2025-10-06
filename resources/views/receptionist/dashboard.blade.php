@@ -104,7 +104,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                        <p class="stats-card-number">${{ number_format($stats['monthly_revenue'], 2) }}</p>
+                        <p class="stats-card-number">{{ \App\Services\SettingsService::formatCurrency($stats['monthly_revenue']) }}</p>
                     </div>
                 </div>
             </div>

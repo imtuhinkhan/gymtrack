@@ -138,6 +138,30 @@ class SettingsController extends Controller
     }
 
     /**
+     * Update currency settings.
+     */
+    public function updateCurrency(Request $request)
+    {
+        $request->validate([
+            'currency_code' => 'required|string|max:3',
+            'currency_symbol' => 'required|string|max:10',
+            'currency_position' => 'required|in:before,after',
+        ]);
+
+        $settings = [
+            'currency_code' => $request->currency_code,
+            'currency_symbol' => $request->currency_symbol,
+            'currency_position' => $request->currency_position,
+        ];
+
+        foreach ($settings as $key => $value) {
+            SettingsService::set($key, $value);
+        }
+
+        return back()->with('success', 'Currency settings updated successfully.');
+    }
+
+    /**
      * Update logo.
      */
     public function updateLogo(Request $request)

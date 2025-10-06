@@ -84,7 +84,7 @@ class Package extends Model
      */
     public function getFormattedPriceAttribute(): string
     {
-        return '$' . number_format($this->price, 2);
+        return \App\Services\SettingsService::formatCurrency($this->price);
     }
 
     /**

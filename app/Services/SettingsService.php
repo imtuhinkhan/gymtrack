@@ -76,6 +76,54 @@ class SettingsService
     }
 
     /**
+     * Get currency symbol.
+     *
+     * @return string
+     */
+    public static function getCurrencySymbol(): string
+    {
+        return self::get('currency_symbol', '$');
+    }
+
+    /**
+     * Get currency code.
+     *
+     * @return string
+     */
+    public static function getCurrencyCode(): string
+    {
+        return self::get('currency_code', 'USD');
+    }
+
+    /**
+     * Get currency position (before or after amount).
+     *
+     * @return string
+     */
+    public static function getCurrencyPosition(): string
+    {
+        return self::get('currency_position', 'before');
+    }
+
+    /**
+     * Format amount with currency.
+     *
+     * @param float $amount
+     * @param int $decimals
+     * @return string
+     */
+    public static function formatCurrency(float $amount, int $decimals = 2): string
+    {
+        $symbol = self::getCurrencySymbol();
+        $position = self::getCurrencyPosition();
+        $formattedAmount = number_format($amount, $decimals);
+        
+        return $position === 'before' 
+            ? $symbol . $formattedAmount 
+            : $formattedAmount . $symbol;
+    }
+
+    /**
      * Clear all settings cache.
      *
      * @return void

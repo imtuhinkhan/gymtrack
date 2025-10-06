@@ -168,7 +168,7 @@
             <tr>
                 <td>{{ $payment->package->name ?? 'Gym Membership' }}</td>
                 <td>{{ $payment->package->name ?? 'Standard Package' }}</td>
-                <td>${{ number_format($payment->amount, 2) }}</td>
+                <td>{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</td>
             </tr>
         </tbody>
     </table>
@@ -177,15 +177,15 @@
         <table class="total-table">
             <tr>
                 <td>Subtotal:</td>
-                <td>${{ number_format($payment->amount, 2) }}</td>
+                <td>{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</td>
             </tr>
             <tr>
                 <td>Tax:</td>
-                <td>$0.00</td>
+                <td>{{ \App\Services\SettingsService::formatCurrency(0) }}</td>
             </tr>
             <tr class="total-row">
                 <td>Total:</td>
-                <td>${{ number_format($payment->amount, 2) }}</td>
+                <td>{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</td>
             </tr>
         </table>
     </div>

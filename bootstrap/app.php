@@ -21,6 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'installation' => \App\Http\Middleware\InstallationMiddleware::class,
             'no.cache' => \App\Http\Middleware\NoCacheMiddleware::class,
         ]);
+
+        // Apply NoCacheMiddleware globally to prevent caching issues
+        $middleware->web(append: [
+            \App\Http\Middleware\NoCacheMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -66,21 +66,21 @@
                         <p class="text-sm text-gray-600">Mark attendance for gym members</p>
                     </div>
                     <div class="card-body">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                        <div class="table-responsive">
+                            <table class="mobile-table">
+                                <thead>
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                                        <th>Member</th>
+                                        <th>Branch</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Notes</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody>
                                     @foreach($customers as $customer)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
                                                         <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
@@ -95,20 +95,20 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ $customer->branch->name ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="time" name="entries[{{ $loop->index }}][check_in_time]" 
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                                 <input type="hidden" name="entries[{{ $loop->index }}][attendable_type]" value="customer">
                                                 <input type="hidden" name="entries[{{ $loop->index }}][attendable_id]" value="{{ $customer->id }}">
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="time" name="entries[{{ $loop->index }}][check_out_time]" 
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="text" name="entries[{{ $loop->index }}][notes]" 
                                                        placeholder="Optional notes"
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
@@ -130,22 +130,22 @@
                         <p class="text-sm text-gray-600">Mark attendance for trainers</p>
                     </div>
                     <div class="card-body">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                        <div class="table-responsive">
+                            <table class="mobile-table">
+                                <thead>
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trainer</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialization</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                                        <th>Trainer</th>
+                                        <th>Branch</th>
+                                        <th>Specialization</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Notes</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody>
                                     @foreach($trainers as $trainer)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
                                                         <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
@@ -160,23 +160,23 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ $trainer->branch->name ?? 'N/A' }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            <td>
                                                 {{ is_array($trainer->specializations) ? implode(', ', $trainer->specializations) : $trainer->specializations }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="time" name="entries[{{ $loop->index + $customers->count() }}][check_in_time]" 
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                                 <input type="hidden" name="entries[{{ $loop->index + $customers->count() }}][attendable_type]" value="trainer">
                                                 <input type="hidden" name="entries[{{ $loop->index + $customers->count() }}][attendable_id]" value="{{ $trainer->id }}">
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="time" name="entries[{{ $loop->index + $customers->count() }}][check_out_time]" 
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <input type="text" name="entries[{{ $loop->index + $customers->count() }}][notes]" 
                                                        placeholder="Optional notes"
                                                        class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">

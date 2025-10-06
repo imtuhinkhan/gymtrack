@@ -43,7 +43,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-                            <p class="text-lg font-bold text-gray-900">${{ number_format($payment->amount, 2) }}</p>
+                            <p class="text-lg font-bold text-gray-900">{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>

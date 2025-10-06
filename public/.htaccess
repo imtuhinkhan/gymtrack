@@ -1,3 +1,50 @@
+# Aggressive cache prevention for development and cPanel hosting
+<IfModule mod_headers.c>
+    # Disable all types of caching
+    Header always set Cache-Control "no-cache, no-store, must-revalidate, max-age=0, private, no-transform"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+    
+    # Additional headers to prevent different types of caching
+    Header always set Last-Modified "Thu, 01 Jan 1970 00:00:00 GMT"
+    Header always set ETag ""
+    Header unset ETag
+    
+    # Prevent proxy caching
+    Header always set X-Accel-Expires "0"
+    Header always set X-Cache "MISS"
+    Header always set X-Cache-Lookup "MISS"
+    
+    # Force revalidation
+    Header always set Vary "*"
+    Header always set Connection "close"
+</IfModule>
+
+# Disable ETags completely
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# Disable compression caching
+<IfModule mod_deflate.c>
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \
+        \.(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+</IfModule>
+
+# Force immediate expiration
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 0 seconds"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/css "access plus 0 seconds"
+    ExpiresByType application/javascript "access plus 0 seconds"
+    ExpiresByType application/x-javascript "access plus 0 seconds"
+    ExpiresByType text/javascript "access plus 0 seconds"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes

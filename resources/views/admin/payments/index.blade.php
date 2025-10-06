@@ -106,7 +106,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    ${{ number_format($payment->amount, 2) }}
+                                    {{ \App\Services\SettingsService::formatCurrency($payment->amount) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <span class="badge badge-secondary">{{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}</span>
@@ -178,7 +178,7 @@
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="stats-card-title">Total Revenue</dt>
-                            <dd class="stats-card-value">${{ number_format($payments->where('status', 'paid')->sum('amount'), 2) }}</dd>
+                            <dd class="stats-card-value">{{ \App\Services\SettingsService::formatCurrency($payments->where('status', 'paid')->sum('amount')) }}</dd>
                         </dl>
                     </div>
                 </div>

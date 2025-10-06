@@ -125,10 +125,20 @@ Route::middleware('installation')->group(function () {
             Route::prefix('settings')->name('settings.')->middleware('permission:view_settings')->group(function () {
                 Route::get('/', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');
                 Route::post('/general', [\App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('general')->middleware('permission:edit_settings');
+                Route::post('/currency', [\App\Http\Controllers\Admin\SettingsController::class, 'updateCurrency'])->name('currency')->middleware('permission:edit_settings');
                 Route::post('/email', [\App\Http\Controllers\Admin\SettingsController::class, 'updateEmail'])->name('email')->middleware('permission:edit_settings');
                 Route::post('/system', [\App\Http\Controllers\Admin\SettingsController::class, 'updateSystem'])->name('system')->middleware('permission:edit_settings');
                 Route::post('/logo', [\App\Http\Controllers\Admin\SettingsController::class, 'updateLogo'])->name('logo')->middleware('permission:manage_logo');
                 Route::post('/clear-cache', [\App\Http\Controllers\Admin\SettingsController::class, 'clearCache'])->name('clear-cache')->middleware('permission:clear_cache');
+            });
+
+            // Cache busting route
+            Route::get('/cache-bust', function() {
+                return response()->json([
+                    'timestamp' => time(),
+                    'message' => 'Cache busted successfully',
+                    'cache_cleared' => true
+                ])->header('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
             });
 
             // PWA Settings

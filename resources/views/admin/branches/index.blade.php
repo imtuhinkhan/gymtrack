@@ -35,22 +35,22 @@
                     </div>
                 </div>
             @else
-                <div class="overflow-x-auto">
-                    <table class="w-full divide-y divide-gray-200">
-                        <thead class="table-header">
+                <div class="table-responsive">
+                    <table class="mobile-table">
+                        <thead>
                             <tr>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Branch</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Location</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Manager</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Hours</th>
-                                <th class="px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                <th class="px-3 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                                <th>Branch</th>
+                                <th>Location</th>
+                                <th>Manager</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                                <th class="text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-100">
+                        <tbody>
                             @foreach($branches as $branch)
-                                <tr class="table-row">
-                                    <td class="px-3 py-4">
+                            <tr>
+                                <td>
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-8 w-8">
                                                 @if($branch->logo)
@@ -69,21 +69,21 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                    <td>
                                         {{ $branch->city }}, {{ $branch->state }}
                                     </td>
-                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                    <td>
                                         {{ $branch->manager_name ?? 'Not Assigned' }}
                                     </td>
-                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                    <td>
                                         {{ \Carbon\Carbon::parse($branch->opening_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($branch->closing_time)->format('g:i A') }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    <td>
                                         <span class="badge badge-{{ $branch->is_active ? 'success' : 'warning' }}">
                                             {{ $branch->is_active ? 'Active' : 'Inactive' }}
                                         </span>
                                     </td>
-                                    <td class="px-3 py-4 text-right text-sm font-medium">
+                                    <td class="text-right">
                                         <div class="flex justify-end space-x-2">
                                             <a href="{{ route('admin.branches.show', $branch->id) }}" class="text-blue-600 hover:text-blue-900">View</a>
                                             @can('edit_branches')

@@ -83,7 +83,7 @@
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="stats-card-title">Total Revenue</dt>
-                            <dd class="stats-card-value">${{ number_format($totalRevenue, 2) }}</dd>
+                            <dd class="stats-card-value">{{ \App\Services\SettingsService::formatCurrency($totalRevenue) }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="stats-card-title">Average Transaction</dt>
-                            <dd class="stats-card-value">${{ $payments->count() > 0 ? number_format($totalRevenue / $payments->count(), 2) : '0.00' }}</dd>
+                            <dd class="stats-card-value">{{ $payments->count() > 0 ? \App\Services\SettingsService::formatCurrency($totalRevenue / $payments->count()) : \App\Services\SettingsService::formatCurrency(0) }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -159,46 +159,46 @@
         </div>
         <div class="card-body">
             @if($payments->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                <div class="table-responsive">
+                    <table class="mobile-table">
+                        <thead>
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Payment Date</th>
+                                <th>Status</th>
                                 @if(auth()->user()->hasRole('admin'))
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                                <th>Branch</th>
                                 @endif
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
+                                <th>Payment Method</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody>
                             @foreach($payments as $payment)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <div class="text-sm font-medium text-gray-900">
                                             {{ $payment->customer->first_name ?? 'N/A' }} {{ $payment->customer->last_name ?? '' }}
                                         </div>
                                         <div class="text-sm text-gray-500">{{ $payment->customer->email ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        ${{ number_format($payment->amount, 2) }}
+                                        {{ \App\Services\SettingsService::formatCurrency($payment->amount) }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ $payment->payment_date ? \Carbon\Carbon::parse($payment->payment_date)->format('M d, Y') : 'N/A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <span class="badge {{ $payment->status === 'paid' ? 'badge-success' : ($payment->status === 'pending' ? 'badge-warning' : 'badge-danger') }}">
                                             {{ ucfirst($payment->status) }}
                                         </span>
                                     </td>
                                     @if(auth()->user()->hasRole('admin'))
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ $payment->branch->name ?? 'N/A' }}
                                     </td>
                                     @endif
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td>
                                         {{ ucfirst($payment->payment_method ?? 'N/A') }}
                                     </td>
                                 </tr>
@@ -246,7 +246,7 @@ new Chart(revenueByDateCtx, {
     data: {
         labels: revenueByDateLabels,
         datasets: [{
-            label: 'Revenue ($)',
+            label: 'Revenue ({{ \App\Services\SettingsService::getCurrencySymbol() }})',
             data: revenueByDateValues,
             borderColor: 'rgb(59, 130, 246)',
             backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -267,7 +267,7 @@ new Chart(revenueByDateCtx, {
                 beginAtZero: true,
                 ticks: {
                     callback: function(value) {
-                        return '$' + value.toLocaleString();
+                        return '{{ \App\Services\SettingsService::getCurrencySymbol() }}' + value.toLocaleString();
                     }
                 }
             }
@@ -313,7 +313,7 @@ new Chart(revenueByBranchCtx, {
             tooltip: {
                 callbacks: {
                     label: function(context) {
-                        return context.label + ': $' + context.parsed.toLocaleString();
+                        return context.label + ': {{ \App\Services\SettingsService::getCurrencySymbol() }}' + context.parsed.toLocaleString();
                     }
                 }
             }

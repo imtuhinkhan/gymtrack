@@ -152,7 +152,7 @@
 
                         <!-- Hourly Rate -->
                         <div>
-                            <label for="hourly_rate" class="block text-sm font-medium text-gray-700 mb-2">Hourly Rate ($)</label>
+                            <label for="hourly_rate" class="block text-sm font-medium text-gray-700 mb-2">Hourly Rate ({{ \App\Services\SettingsService::getCurrencySymbol() }})</label>
                             <input type="number" name="hourly_rate" id="hourly_rate" min="0" step="0.01"
                                    value="{{ old('hourly_rate') }}"
                                    class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 @error('hourly_rate') border-red-300 @enderror">

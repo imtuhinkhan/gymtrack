@@ -14,7 +14,7 @@ class InstallController extends Controller
     {
         // Check if already installed
         if ($this->isInstalled()) {
-            return redirect()->route('home')->with('info', 'System is already installed.');
+            return redirect()->route('login')->with('info', 'System is already installed.');
         }
 
         return view('install.index');

@@ -122,7 +122,7 @@
                                         {{ is_array($trainer->specializations) ? implode(', ', $trainer->specializations) : $trainer->specializations }}
                                     </td>
                                     <td class="px-3 py-4 text-sm text-gray-900">
-                                        ${{ number_format($trainer->hourly_rate ?? 0, 2) }}/hr
+                                        {{ \App\Services\SettingsService::formatCurrency($trainer->hourly_rate ?? 0) }}/hr
                                     </td>
                                     <td class="px-3 py-4">
                                         <span class="badge badge-{{ $trainer->status === 'active' ? 'success' : ($trainer->status === 'inactive' ? 'warning' : 'danger') }}">

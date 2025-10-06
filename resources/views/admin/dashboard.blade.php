@@ -1,17 +1,18 @@
 @extends('layouts.dashboard')
 
+
 @section('content')
     <!-- Welcome Header -->
-    <div class="mb-8">
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-2xl">
+    <div class="mb-6 lg:mb-8">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl lg:rounded-2xl p-6 lg:p-8 text-white shadow-2xl">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-4xl font-bold mb-2">Welcome back, {{ Auth::user()->name }}!</h1>
-                    <p class="text-blue-100 text-lg">Here's what's happening with {{ $appName }} today.</p>
+                    <h1 class="text-2xl lg:text-4xl font-bold mb-2">Welcome back, {{ Auth::user()->name }}!</h1>
+                    <p class="text-blue-100 text-sm lg:text-lg">Here's what's happening with {{ $appName }} today.</p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 lg:w-24 lg:h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
@@ -21,7 +22,7 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
         <div class="stats-card">
             <div class="stats-card-header">
                 <div class="flex items-center">
@@ -87,7 +88,7 @@
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="stats-card-title">Monthly Revenue</dt>
-                            <dd class="stats-card-value">${{ number_format($stats['monthly_revenue'], 2) }}</dd>
+                            <dd class="stats-card-value">{{ \App\Services\SettingsService::formatCurrency($stats['monthly_revenue']) }}</dd>
                         </dl>
                     </div>
                 </div>
